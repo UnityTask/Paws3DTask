@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#120f12" />
+    <title>淄博两日烟火线</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="stage" aria-labelledby="page-title">
+        <header class="topbar">
+          <div>
+            <p class="kicker">ZIBO FIRE ROUTE</p>
+            <h1 id="page-title">淄博两日烟火线</h1>
+          </div>
+          <div class="date-lockup">
+            <span>6.17</span>
+            <span>6.18</span>
+          </div>
+        </header>
+
+        <div class="map-board" aria-label="淄博行程地图">
+          <svg class="map-art" viewBox="0 0 1000 1200" role="img" aria-label="淄博视觉地图">
+            <defs>
+              <pattern id="streetGrid" width="70" height="70" patternUnits="userSpaceOnUse">
+                <path d="M 70 0 L 0 0 0 70" class="grid-line" />
+              </pattern>
+              <filter id="routeGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="7" result="blur" />
+                <feColorMatrix
+                  in="blur"
+                  type="matrix"
+                  values="1 0 0 0 0.95  0 0.74 0 0 0.38  0 0 0.25 0 0.16  0 0 0 1 0"
+                  result="glow"
+                />
+                <feMerge>
+                  <feMergeNode in="glow" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <rect width="1000" height="1200" class="map-base" />
+            <rect width="1000" height="1200" fill="url(#streetGrid)" opacity="0.23" />
+            <path
+              class="terrain-line terrain-line-a"
+              d="M90 1010 C220 925 340 940 470 850 C610 750 640 610 790 545 C870 510 910 440 940 345"
+            />
+            <path
+              class="terrain-line terrain-line-b"
+              d="M120 220 C240 260 330 245 455 200 C595 150 710 190 875 125"
+            />
+            <path
+              class="river-line"
+              d="M700 40 C650 145 725 230 650 335 C590 420 635 520 555 650 C500 735 520 840 465 940 C420 1020 430 1110 365 1180"
+            />
+            <path
+              class="main-road"
+              d="M505 1010 C500 880 510 755 535 640 C560 520 545 410 525 275 C515 205 535 130 575 55"
+            />
+            <path
+              class="main-road secondary"
+              d="M210 515 C355 460 475 465 610 505 C720 535 815 510 930 440"
+            />
+            <path
+              class="main-road secondary"
+              d="M250 715 C385 650 475 610 590 575 C675 550 760 575 850 635"
+            />
+            <g class="district-labels" aria-hidden="true">
+              <text x="520" y="160">齐盛湖</text>
+              <text x="555" y="340">张店</text>
+              <text x="715" y="505">湖田</text>
+              <text x="270" y="500">西线</text>
+              <text x="510" y="920">博山</text>
+            </g>
+
+            <path id="routeShadow" class="route-shadow" />
+            <path id="routeTrack" class="route-track" />
+            <path id="routeLive" class="route-live" filter="url(#routeGlow)" />
+          </svg>
+
+          <div id="markerLayer" class="marker-layer"></div>
+          <div id="legBadge" class="leg-badge">约距离</div>
+        </div>
+
+        <aside class="station-panel" aria-live="polite">
+          <div class="panel-progress" aria-hidden="true">
+            <span id="panelProgress"></span>
+          </div>
+          <div class="station-meta">
+            <span id="stationDay">6月17日</span>
+            <span id="stationSlot">午饭</span>
+          </div>
+          <h2 id="stationName">博山烤火烧（福园店）</h2>
+          <p id="stationNote"></p>
+          <div id="dishRail" class="dish-rail"></div>
+          <div class="drive-line">
+            <span id="driveLabel">起点</span>
+            <span id="driveCaption">路线开始</span>
+          </div>
+          <div class="panel-actions">
+            <button id="prevButton" class="icon-button" type="button" aria-label="上一站">‹</button>
+            <button id="playButton" class="icon-button primary" type="button" aria-label="暂停">Ⅱ</button>
+            <button id="nextButton" class="icon-button" type="button" aria-label="下一站">›</button>
+            <a id="navLink" class="nav-link" target="_blank" rel="noopener">高德搜此站</a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="route-sheet" aria-labelledby="route-title">
+        <div class="sheet-heading">
+          <p class="kicker">ROUTE BOARD</p>
+          <h2 id="route-title">完整路线</h2>
+        </div>
+        <ol id="timeline" class="timeline"></ol>
+        <div id="optionalBlock" class="optional-block"></div>
+        <p class="fine-print">地图为视觉参考，行车距离均为约数；页面不调用收费地图接口。</p>
+      </section>
+    </main>
+
+    <script src="./data/itinerary.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
